@@ -16,7 +16,7 @@ gulp.task('scripts', ['static'], () => {
 gulp.task('static', ['clean'], () => {
     return gulp
         .src(['src/**/*.json'])
-        .pipe(gulp.dest('dest'));
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('clean', () => {

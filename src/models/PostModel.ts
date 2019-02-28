@@ -1,8 +1,9 @@
 import * as Sequelize from "sequelize";
 import { BaseModelInterface } from "../interfaces/BaseModelInterface";
+import { ModelsInterface } from "../interfaces/ModelsInterface";
 
 export interface PostAttributes {
-    id?: string;
+    id?: number;
     title?: string;
     content?: string;
     photo?: string;
@@ -19,7 +20,35 @@ export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes):
 
     const Post: PostModel =
         sequelize.define('Post', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+                autoIncrement: true
+            },
+            content: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            photo: {
+                type: DataTypes.BLOB({
+                    length: 'long'
+                }),
+                allowNull: false
+            }
+        }, {
+                tableName: 'posts'
+            });
 
+    Post.associate = (models: ModelsInterface): void => {
+        Post.belongsTo(models.User, {
+            foreignKey: {
+                allowNull: false,
+                field: 'author',
+                name: 'author'
+            }
         })
+    }
 
+    return Post;
 }
