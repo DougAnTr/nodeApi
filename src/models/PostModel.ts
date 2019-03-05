@@ -26,6 +26,10 @@ export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes):
                 primaryKey: true,
                 autoIncrement: true
             },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             content: {
                 type: DataTypes.TEXT,
                 allowNull: false
